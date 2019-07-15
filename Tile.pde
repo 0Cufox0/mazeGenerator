@@ -1,6 +1,6 @@
 class Tile{
   boolean visitted;
-  boolean[] sides = {true, false, true, false};
+  boolean[] sides = {true,  true};
   int x,y;
   public Tile(int x, int y){
     this.x        = x;
@@ -17,7 +17,7 @@ class Tile{
      }
      
      //RIGHT
-     if(sides[2]){
+     if(sides[1]){
        line(trueX + Grid.RES, trueY , trueX + Grid.RES , trueY + Grid.RES);
      }
      

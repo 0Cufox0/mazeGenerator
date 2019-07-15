@@ -1,15 +1,18 @@
 import java.util.Stack;
 class Grid{
-  final static int RES = 10;
+  final static int RES = 5;
+  PVector END ;
   Stack visitted;
   Tile current;
   Tile[][] tileSet;
   int gridWidth;
   int gridHeight;
+  boolean isDone = false;
   public Grid(int W, int H){
    gridWidth  = W / RES;
    gridHeight = H / RES;
    tileSet    = new Tile[gridWidth][gridHeight];
+   END = new PVector(gridWidth - 1, gridHeight - 1);
    visitted = new Stack();  
   }
   boolean checkValue(int x, int y){
@@ -47,8 +50,8 @@ class Grid{
    return tileSet[random.x][random.y];
    }
    if(visitted.isEmpty()){
-     noLoop();
-     print("DONE!");
+     isDone = true;
+     reset();
      return current;
      
    }
@@ -56,24 +59,26 @@ class Grid{
    
    return getNext();
   }
-  
-  void move(){
+  void reset(){
+   for(int x = 0; x < width/Grid.RES;x++){
+    for(int y = 0; y < height/Grid.RES; y++){
+       tileSet[x][y].visitted = false; 
+    }
+   }
+  }
+  void generate(){
     Tile next = getNext();
     int xDir = next.x - current.x;
     int yDir = next.y - current.y;
     if(xDir==1){
-     current.sides[2] = false;
-     next.sides[1] = false;
-    }else if(xDir == -1){
      current.sides[1] = false;
-     next.sides[2] = false;
+    }else if(xDir == -1){
+     next.sides[1] = false;
     }
     if(yDir == 1){
-     current.sides[3] = false;
      next.sides[0] = false;
     }else if(yDir == -1){
      current.sides[0] = false;
-     next.sides[3] = false;
     }
     current = tileSet[next.x][next.y];
     current.visitted = true;
@@ -101,14 +106,10 @@ class Grid{
         tileSet[x][y].drawTile(); 
        }
      }
-     if(frameCount%1==0){
-     move();
-     
-    }
     noStroke();
     fill(255,0,255);
     rect(current.x * RES, current.y * RES, RES, RES);
     fill(0,255,0);
-    rect(tileSet[gridWidth-1][gridHeight-1].x * RES, tileSet[gridWidth-1][gridHeight-1].y * RES, RES, RES);
+    rect(END.x * RES, END.y * RES, RES, RES);
   }
 }
