@@ -9,7 +9,7 @@ void setup(){
 boolean once = true;
 void mousePressed(){
  once = true; 
- find.count = 0;
+ //find.count = 0;
  maze.END = new PVector(mouseX/Grid.RES, mouseY/Grid.RES);
 }
 void draw(){
@@ -18,7 +18,6 @@ void draw(){
      maze.generate();
   }else{
     if(once){
-     maze.reset();
      once = false;
      find = new PathFinder(maze);
      find.findPath(); 

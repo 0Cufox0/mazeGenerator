@@ -1,6 +1,6 @@
 import java.util.Stack;
 class Grid{
-  final static int RES = 5;
+  final static int RES = 10;
   PVector END ;
   Stack visitted;
   Tile current;
@@ -12,7 +12,7 @@ class Grid{
    gridWidth  = W / RES;
    gridHeight = H / RES;
    tileSet    = new Tile[gridWidth][gridHeight];
-   END = new PVector(gridWidth - 1, gridHeight - 1);
+   END = new PVector(2, 2);
    visitted = new Stack();  
   }
   boolean checkValue(int x, int y){
@@ -60,11 +60,16 @@ class Grid{
    return getNext();
   }
   void reset(){
-   for(int x = 0; x < width/Grid.RES;x++){
-    for(int y = 0; y < height/Grid.RES; y++){
-       tileSet[x][y].visitted = false; 
-    }
-   }
+   //for(int x = 0; x < width/Grid.RES;x++){
+   // for(int y = 0; y < height/Grid.RES; y++){
+   //    for(int i = 0; i < tileSet[x][y].sides.length;i++){
+   //      tileSet[x][y].sides[i] = false;
+   //    }
+   // }
+   //}
+   //for(int i = 5; i < 15; i++){
+   // tileSet[5][i].sides[1] = true; 
+   //}
   }
   void generate(){
     Tile next = getNext();
